@@ -4,8 +4,8 @@
   "description": "Pias, bancadas e nichos em porcelanato sob medida",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#f5f6f4",
-  "theme_color": "#0e1114",
+  "background_color": "#efe6da",
+  "theme_color": "#1c1814",
   "lang": "pt-BR",
   "icons": [
     {
