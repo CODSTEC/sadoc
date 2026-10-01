@@ -1,5 +1,5 @@
 /* Cache estático leve para o site SADOC Gonçalves */
-const CACHE = "sadoc-v2";
+const CACHE = "sadoc-v4";
 const PRECACHE = [
   "./",
   "./index.html",

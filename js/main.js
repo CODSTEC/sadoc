@@ -19,42 +19,39 @@ document.querySelectorAll("[data-whatsapp]").forEach((el) => {
   el.rel = "noopener";
 });
 
-// ===== Galeria =====
+// ===== Galeria (apenas .webp) =====
 const galeria = document.getElementById("galeria");
-if (!CONFIG.galeria.length) {
+const fotos = CONFIG.galeria;
+
+if (!fotos.length) {
   galeria.innerHTML = '<p class="vazio">Em breve, fotos dos nossos trabalhos.</p>';
 } else {
-  CONFIG.galeria.forEach((foto) => {
+  fotos.forEach((foto, i) => {
     const botao = document.createElement("button");
     botao.type = "button";
     botao.setAttribute("aria-label", `Ampliar: ${foto.alt}`);
 
-    const picture = document.createElement("picture");
-    if (foto.thumb) {
-      const source = document.createElement("source");
-      source.srcset = foto.thumb;
-      source.type = "image/webp";
-      picture.appendChild(source);
-    }
     const img = document.createElement("img");
-    img.src = foto.thumbFallback || foto.srcFallback || foto.src;
+    img.src = foto.src;
     img.alt = "";
     img.loading = "lazy";
     img.decoding = "async";
-    picture.appendChild(img);
 
-    botao.appendChild(picture);
-    botao.addEventListener("click", () => abrir(foto));
+    botao.appendChild(img);
+    botao.addEventListener("click", () => abrir(i));
     galeria.appendChild(botao);
   });
 }
 
-// ===== Lightbox acessível (focus trap + Esc + clique fora) =====
+// ===== Lightbox acessível (focus trap + Esc + setas + clique fora) =====
 const lightbox = document.getElementById("lightbox");
 const imgGrande = lightbox.querySelector("img");
 const botaoFechar = lightbox.querySelector(".fechar");
+const botaoPrev = lightbox.querySelector(".lb-prev");
+const botaoNext = lightbox.querySelector(".lb-next");
 let ultimoFoco = null;
 let liberarTrap = null;
+let indiceAtual = 0;
 
 function focaveisEm(raiz) {
   return [...raiz.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')]
@@ -83,26 +80,26 @@ function prenderFoco(container) {
   return () => document.removeEventListener("keydown", handler);
 }
 
-function abrir(foto) {
-  ultimoFoco = document.activeElement;
-  const fallback = foto.srcFallback || foto.src;
-  const preferido = foto.src && foto.src !== fallback ? foto.src : null;
-
-  if (preferido) {
-    const teste = new Image();
-    teste.onload = () => { imgGrande.src = preferido; };
-    teste.onerror = () => { imgGrande.src = fallback; };
-    imgGrande.src = fallback;
-    teste.src = preferido;
-  } else {
-    imgGrande.src = fallback;
-  }
-
+function mostrarFoto(foto) {
+  imgGrande.src = foto.src;
   imgGrande.alt = foto.alt || "";
+}
+
+function abrir(indice) {
+  if (!fotos.length) return;
+  indiceAtual = ((indice % fotos.length) + fotos.length) % fotos.length;
+  ultimoFoco = document.activeElement;
+  mostrarFoto(fotos[indiceAtual]);
   lightbox.hidden = false;
   document.body.style.overflow = "hidden";
-  liberarTrap = prenderFoco(lightbox);
+  if (!liberarTrap) liberarTrap = prenderFoco(lightbox);
   botaoFechar.focus();
+}
+
+function irPara(delta) {
+  if (lightbox.hidden || fotos.length < 2) return;
+  indiceAtual = (indiceAtual + delta + fotos.length) % fotos.length;
+  mostrarFoto(fotos[indiceAtual]);
 }
 
 function fechar() {
@@ -119,12 +116,32 @@ function fechar() {
 }
 
 botaoFechar.addEventListener("click", fechar);
+botaoPrev.addEventListener("click", (e) => {
+  e.stopPropagation();
+  irPara(-1);
+});
+botaoNext.addEventListener("click", (e) => {
+  e.stopPropagation();
+  irPara(1);
+});
+
 lightbox.addEventListener("click", (e) => {
-  if (e.target !== imgGrande) fechar();
+  if (e.target === imgGrande || e.target.closest(".lb-nav") || e.target === botaoFechar) return;
+  fechar();
 });
+
 document.addEventListener("keydown", (e) => {
+  if (lightbox.hidden) return;
   if (e.key === "Escape") fechar();
+  if (e.key === "ArrowLeft") irPara(-1);
+  if (e.key === "ArrowRight") irPara(1);
 });
+
+// Esconde setas se houver só uma foto
+if (fotos.length < 2) {
+  botaoPrev.hidden = true;
+  botaoNext.hidden = true;
+}
 
 // ===== Menu de celular =====
 const botaoMenu = document.querySelector(".menu-botao");

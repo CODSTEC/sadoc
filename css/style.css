@@ -124,7 +124,6 @@ a { color: inherit; }
   box-shadow: 0 30px 60px -25px rgba(60, 35, 10, .5);
   background: linear-gradient(135deg, var(--areia), var(--bronze));
 }
-.hero-imagem picture,
 .hero-imagem img {
   width: 100%;
   height: 100%;
@@ -253,7 +252,7 @@ a { color: inherit; }
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, .88);
-  padding: 1rem;
+  padding: 1rem 4.5rem;
 }
 .lightbox[hidden] { display: none; }
 .lightbox img {
@@ -273,7 +272,28 @@ a { color: inherit; }
   cursor: pointer;
   width: 48px;
   height: 48px;
+  z-index: 2;
 }
+.lb-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .12);
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .2s;
+}
+.lb-nav:hover { background: rgba(255, 255, 255, .25); }
+.lb-prev { left: .75rem; }
+.lb-next { right: .75rem; }
+.lb-nav[hidden] { display: none; }
 
 /* ===== Rodapé compacto ===== */
 .rodape {
@@ -422,6 +442,10 @@ a { color: inherit; }
   .flutuante { right: .75rem; bottom: .75rem; padding: .75rem 1.1rem; }
   .cta { padding: 3.5rem 5vw; }
   .rodape { padding-bottom: 4.25rem; }
+  .lightbox { padding: 1rem 3.2rem; }
+  .lb-nav { width: 40px; height: 40px; font-size: 1.7rem; }
+  .lb-prev { left: .4rem; }
+  .lb-next { right: .4rem; }
 }
 
 @media (max-height: 480px) and (orientation: landscape) {

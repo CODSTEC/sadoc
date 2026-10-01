@@ -11,49 +11,14 @@ const CONFIG = {
   whatsapp: "5568984219839",
   mensagem: "Olá! Vi o site e gostaria de fazer um orçamento.",
 
-  // Fotos da galeria: thumb = grade rápida; src = lightbox em alta
+  // Galeria: um .webp por foto (comprima antes de subir)
+  // Exemplo: { src: "img/pia-06.webp", alt: "Descrição da foto" }
   galeria: [
-    {
-      thumb: "img/thumb-hero.webp",
-      thumbFallback: "img/thumb-hero.jpg",
-      src: "img/hero.webp",
-      srcFallback: "img/hero.jpg",
-      alt: "Pia suspensa em porcelanato bege com nicho iluminado"
-    },
-    {
-      thumb: "img/thumb-pia-01.webp",
-      thumbFallback: "img/thumb-pia-01.jpg",
-      src: "img/pia-01.webp",
-      srcFallback: "img/pia-01.jpg",
-      alt: "Pia suspensa em porcelanato vista de frente"
-    },
-    {
-      thumb: "img/thumb-pia-02.webp",
-      thumbFallback: "img/thumb-pia-02.jpg",
-      src: "img/pia-02.webp",
-      srcFallback: "img/pia-02.jpg",
-      alt: "Bancada e cuba em porcelanato sob medida"
-    },
-    {
-      thumb: "img/thumb-pia-03.webp",
-      thumbFallback: "img/thumb-pia-03.jpg",
-      src: "img/pia-03.webp",
-      srcFallback: "img/pia-03.jpg",
-      alt: "Detalhe de acabamento em pia de porcelanato"
-    },
-    {
-      thumb: "img/thumb-pia-04.webp",
-      thumbFallback: "img/thumb-pia-04.jpg",
-      src: "img/pia-04.webp",
-      srcFallback: "img/pia-04.jpg",
-      alt: "Pia em porcelanato com encaixe preciso"
-    },
-    {
-      thumb: "img/thumb-pia-05.webp",
-      thumbFallback: "img/thumb-pia-05.jpg",
-      src: "img/pia-05.webp",
-      srcFallback: "img/pia-05.jpg",
-      alt: "Composição vertical de pia e nicho em porcelanato"
-    }
+    { src: "img/hero.webp", alt: "Pia suspensa em porcelanato bege com nicho iluminado" },
+    { src: "img/pia-01.webp", alt: "Pia suspensa em porcelanato vista de frente" },
+    { src: "img/pia-02.webp", alt: "Bancada e cuba em porcelanato sob medida" },
+    { src: "img/pia-03.webp", alt: "Detalhe de acabamento em pia de porcelanato" },
+    { src: "img/pia-04.webp", alt: "Pia em porcelanato com encaixe preciso" },
+    { src: "img/pia-05.webp", alt: "Composição vertical de pia e nicho em porcelanato" }
   ]
 };
